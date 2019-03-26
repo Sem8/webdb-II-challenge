@@ -31,8 +31,8 @@ router.get("/:id", (req, res) => {
     })
     .catch(error => {
         res.status(500).json({ message: `Error occurred while retrieving zoo: ${error}`});
-    })
-})
+    });
+});
 
 router.post("/", (req, res) => {
     zoosdb('zoos').insert(req.body).then(ids => {
