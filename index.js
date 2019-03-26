@@ -2,38 +2,22 @@ const express = require('express');
 const helmet = require('helmet');
 
 const zoosRouter = require('./zoos/zoos-router');
-
-// const router = require('express').Router();
-
-// const knex = require('knex');
-
-// const knexConfig = {
-//   client: "sqlite3",
-//   useNullAsDefault: true,
-//   connection: {
-//     filename: "./data/lambda.sqlite3"
-//   },
-// };
-
-// const db = knex(knexConfig);
+const bearsRouter = require('./zoos/bears-router');
 
 const server = express();
 
 server.use(express.json());
 server.use(helmet());
 
+server.get("/", (req, res) => {
+  res.send(
+    `Navigate to /api/zoos on the URL to get all zoos \n Navigate to /api/bears to get all bears data`
+  );
+});
+
 server.use('/api/zoos', zoosRouter);
+server.use('/api/bears', bearsRouter);
 
-// endpoints here
-
-// router.get("/", (req, res) => {
-//   // db('zoos').then(zoos => {
-//   //   res.status(200).json(zoos)
-//   // }).catch(error => {
-//   //   res.status(500).json(error);
-//   // });
-//   res.send('get alls zoos data here');
-// });
 
 const port = 3300;
 server.listen(port, function() {
